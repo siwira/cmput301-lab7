@@ -105,6 +105,32 @@ public class MainActivityTest {
         onView(withId(R.id.text_cityName))
                 .check(matches(withText("Edmonton")));
 
+    }
+    @Test
+    public void testBackButton() {
+
+        // Add city
+        onView(withId(R.id.button_add)).perform(click());
+        onView(withId(R.id.editText_name)).perform(typeText("Edmonton"));
+        onView(withId(R.id.button_confirm)).perform(click());
+
+
+        // Add city
+        onView(withId(R.id.button_add)).perform(click());
+
+        onView(withId(R.id.editText_name)).perform(typeText("Edmonton"));
+
+        onView(withId(R.id.button_confirm)).perform(click());
+        // Click city from ListView
+        onData(anything()).inAdapterView(withId(R.id.city_list)).atPosition(0).perform(click());
+        // Verify ShowActivity
+        onView(withId(R.id.text_cityName))
+                .check(matches(isDisplayed()));
+
+        // Verify correct city name
+        onView(withId(R.id.text_cityName))
+                .check(matches(withText("Edmonton")));
+
         // Click back button
         onView(withId(R.id.button_back)).perform(click());
 
@@ -114,5 +140,4 @@ public class MainActivityTest {
 
 
     }
-
 }
